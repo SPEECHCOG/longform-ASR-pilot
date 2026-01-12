@@ -1,0 +1,9 @@
+# conf/steps/transcribe.yaml
+
+defaults:
+  - feature_extraction
+  - evaluate
+
+transcribe:
+  model_type: ${models.default_ensemble}
+  clear_tmp: false

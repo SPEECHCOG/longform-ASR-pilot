@@ -1,0 +1,11 @@
+defaults:
+  - steps:
+      #- train # requires manual annotations in input_path
+      - evaluate
+      #- transcribe
+
+  - models: models # base_models defined in models.yaml
+  - features: features # features defined in features.yaml
+  - paths: paths # input_path, output_path, models_path, corpus_paths defined in paths.yaml
+
+  - _self_

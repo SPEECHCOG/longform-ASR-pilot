@@ -1,0 +1,32 @@
+# conf/steps/prediction.yaml
+
+prediction:
+  model_type: ${models.default_ensemble} # a list of combination of any of the following base-models: [catboost, lgb, xgb, log_reg, svc]
+
+  extracted_features_path: ${paths.feature_extraction_paths.features_path}
+  pretrained_models_path: ${paths.classification_paths.pretrained_models_path} # to access any pretrained models
+  retrained_models_path: ${paths.classification_paths.retrained_models_path}/full_dataset # to access any re-trained models (if available and use_retrained is true)
+  prediction_output_path: ${paths.classification_paths.prediction_output_path} # saves prediction results here
+  evaluation_output_path: ${paths.classification_paths.evaluation_output_path} # saves evaluation results here (if evaluate is true and true labels are provided)
+  
+  use_retrained: true # whether to use re-trained models (if available) or pre-trained models for prediction
+  
+  duration_threshold: ${models.duration_threshold}
+  class_threshold: ${models.class_threshold}
+  post_hoc_threshold: ${models.post_hoc_threshold}
+  
+  features: ${features.include}
+  
+  preprocessing: ${models.preprocessing}
+  
+  target: ${features.target}
+  sample_id: ${features.sample_id}
+  corpus_id: ${features.corpus_id}
+
+  evaluate: true # whether to evaluate predictions if true labels are provided
+  evaluation_metrics: 
+    - auc
+    - precision
+    - recall
+    #- accuracy
+    #- f1

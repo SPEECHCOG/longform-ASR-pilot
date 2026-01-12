@@ -1,0 +1,38 @@
+# conf/steps/train.yaml
+
+defaults:
+  - feature_extraction
+
+train:
+  model_type: ${models.default_ensemble} # a list of combination of any of the following base-models: [catboost, lgb, xgb, log_reg, svc] 
+  
+  extracted_features_path: ${paths.feature_extraction_paths.extracted_features_path}
+  petrained_models_path: ${paths.classification_paths.petrained_models_path} # to access any pretrained models (if needed)
+  retrained_models_path: ${paths.classification_paths.retrained_models_path} # saves newly trained model here
+  evaluation_output_path: ${paths.classification_paths.evaluation_output_path} # saves evaluation results here (if evaluate is true)
+  
+  duration_threshold: ${models.duration_threshold}
+  class_threshold: ${models.class_threshold}
+  post_hoc_threshold: ${models.post_hoc_threshold}
+  preprocessing: ${models.preprocessing}
+  features: ${features.include}
+    
+  target: ${features.target}
+  sample_id: ${features.sample_id}
+  corpus_id: ${features.corpus_id}
+  seed: 42
+
+  evaluate: true
+  save_models: true
+
+  # if evaluate is true
+  evaluation_type: train_test_split # leave_one_corpus_out / k_fold_cross_validation / train_test_split
+  k_folds: 5      # if k_fold_cross_validation
+  test_size: 0.2  # if train_test_split
+
+  evaluation_metrics: # if evaluate and save_metrics are true
+    - auc
+    - precision
+    - recall
+    #- accuracy
+    #- f1

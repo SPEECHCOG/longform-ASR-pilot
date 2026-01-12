@@ -1,0 +1,11 @@
+feature_extraction_paths:
+  corpus_paths: ["eval_corpus"]                        # list of corpus folder names in input_path (if null, it will take all folders in input_path)
+  input_data_path: ${hydra:runtime.cwd}/sample/input   # path to input folder containing corpus folders (each corpus folder should contain 'audio' and 'annotation' subfolders)
+  output_data_path: ${hydra:runtime.cwd}/output/features # path to output folder where feature extraction results will be saved
+  extracted_features_path: ${paths.feature_extraction_paths.output_data_path}/_output_data.csv  # path to the extracted features file (csv)
+
+classification_paths:
+  pretrained_models_path: ${hydra:runtime.cwd}/src/classifier/input/pretrained_models # path to folder where pre-trained models are stored
+  retrained_models_path: ${hydra:runtime.cwd}/output/retrained_models                 # path to folder where re-trained models will be saved from re-training step
+  prediction_output_path: ${hydra:runtime.cwd}/output/prediction_output               # path to folder where prediction results will be saved from prediction step
+  evaluation_output_path: ${hydra:runtime.cwd}/output/evaluation_output               # path to folder where evaluation results will be saved from re-training step

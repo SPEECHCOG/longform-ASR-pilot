@@ -1,0 +1,64 @@
+# conf/models/models.yaml
+
+duration_threshold: 0.3 # in seconds, minimum duration of audio to be considered for classification
+class_threshold: 0.3 # WER threshold to binarily classify as low/high WER (< threshold: low WER, >= threshold: high WER)
+post_hoc_threshold: 0.6 # Probability threshold for positive class (low WER). Set to be higher than 0.5 to increase precision
+
+preprocessing:
+  scaler:
+    enabled: true
+    source:
+      _target_: sklearn.preprocessing.StandardScaler
+
+  feature_selection: # Disabled by default, not yet implemented in the pipeline
+    enabled: false
+    source: 
+      _target_: sklearn.feature_selection.mutual_info_classif
+      n_neighbors: 8
+    threshold: 0.1
+
+base_models:
+  svc:
+    _target_: sklearn.svm.SVC
+    kernel: "linear"
+    probability: true
+
+  catboost:
+    _target_: catboost.CatBoostClassifier
+    learning_rate: 0.05
+    depth: 4
+    iterations: 300
+    l2_leaf_reg: 7
+    border_count: 64
+    bootstrap_type: "Bernoulli"
+    grow_policy: "Lossguide"
+    eval_metric: "AUC"
+    verbose: false
+
+  xgboost:
+    _target_: xgboost.XGBClassifier
+    eval_metric: "auc"
+    learning_rate: 0.1
+    max_depth: 3
+    n_estimators: 100
+    subsample: 0.8
+
+  lightgbm:
+    _target_: lightgbm.LGBMClassifier
+    num_leaves: 15
+    subsample: 0.7
+    colsample_bytree: 0.9
+    verbosity: -1
+
+  logistic_regression:
+    _target_: sklearn.linear_model.LogisticRegression
+    class_weight: "balanced" # Conserves recall
+
+# Comment/uncomment models in the ensemble as needed (possible to have just one model as well)
+default_ensemble:
+  - ${models.base_models.catboost}
+  - ${models.base_models.lightgbm}
+  - ${models.base_models.xgboost}
+  - ${models.base_models.logistic_regression}
+  - ${models.base_models.svc}
+

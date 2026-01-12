@@ -1,0 +1,36 @@
+# conf/steps/feature_extraction.yaml
+
+feature_extraction:
+  corpus_paths: ${paths.feature_extraction_paths.corpus_paths} # list of corpus folder names in input_path (if null, it will take all folders in input_path)
+  input_path: ${paths.feature_extraction_paths.input_data_path}
+  output_path: ${paths.feature_extraction_paths.output_data_path}
+
+  features:
+    - whisper
+    - wer
+    - joint_report
+
+  whisper: # Models from whisper-timestamped
+    large:
+      model: "large-v3"
+      suf: large
+    small:
+      model: "base"
+      suf: small
+    alignment_confidence: true
+    language: en
+
+  wer:
+    target: "large"  # large/small/null (It doesn't calculate WER with manual annotations)
+    dist_reference: "large"  # large/small (model used as reference for WER calculation)  # DELETE
+    unit_to_compare: "word"  # 1gram/2gram/3gram/word, where 1gram/2gram/3gram refer to character-level n-grams.
+
+  joint_report:
+    features:
+      - wer_dist
+      - wer
+    drop_na_wer: true  # remove data with no manual transcription
+    include_annotations: true
+
+  overwrite: false
+  clear_tmp: true

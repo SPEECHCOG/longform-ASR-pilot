@@ -1,0 +1,26 @@
+# conf/features/features.yaml
+
+include:
+  - wer_model_dist
+  - ins_model_dist
+  - del_model_dist
+  - sub_model_dist
+  - duration
+  - n_words
+  - confidence_mean_large
+  - confidence_mean_small
+  - confidence_min_large
+  - confidence_min_small
+  - confidence_max_large
+  - confidence_max_small
+  - confidence_align_mean_large
+  - confidence_align_mean_small
+  - confidence_align_min_large
+  - confidence_align_min_small
+  - confidence_align_max_large
+  - confidence_align_max_small
+
+target: wer
+sample_id: file
+corpus_id: ds
+
