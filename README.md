@@ -3,7 +3,8 @@
 Program code for:
 
  - Training the classifier to detect low-WER transcriptions of spoken utterances.
- - Automatic transcription of spoken utterances and estimation of quality of produced transcriptions.
+ - Automatic transcription of spoken utterances
+ - Detection of low-WER transcriptions using the trained classifier.
  - Linguistic analysis and comparison of automatic and manual transcriptions.
 
 ### 1. Contents
