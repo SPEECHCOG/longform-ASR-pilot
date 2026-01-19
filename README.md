@@ -25,6 +25,10 @@ Program code for:
  - `sample/input/eval_corpus`: data to test the classifier trainining and prediction (require audio files along with their transcriptions).
  - `sample/input/transcribe_corpus`: data to test the transcription procedure (require audio files only).
 
+1.4. Lexical data that has been analyzed, including the counts of word lemmas in automatic and corresponding manual transcriptions.
+ - `experimental_data/word_all_0.csv`: all automatically transcribed utterances.
+ - `experimental_data/word_all_0.6.csv`: selected automatically transcribed utterances.
+
 ### 2. Main dependencies
 
 2.1. Classifier
